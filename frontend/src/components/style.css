@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400..800&display=swap');
+
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: "Baloo 2", sans-serif;
+
+
+}
+
+body {
+
+	background-image: url("https://w.wallhaven.cc/full/qz/wallhaven-qzvx77.jpg");
+	/* background-position: center; */
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+
+.login-container {
+
+	width: 30%;
+	margin: auto;
+
+	border: 2px solid antiquewhite;
+	border-radius: 20px;
+
+	backdrop-filter: blur(50px);
+	
+	position: absolute;
+
+	top: 30%;
+	left: 37%;
+	
+
+
+}
+
+.auth-box {
+	display: flex;
+	flex-direction: column;
+	/* align-items: center; */
+	/* justify-content: center; */
+
+	padding: 5px;
+	margin: 10px;
+	/* margin: 0 0 30px 0; */
+
+}
+
+.auth-box label {
+	font-size: 2.0rem;
+	font-weight: bold;
+	color: wheat;
+	
+}
+
+.auth-box input {
+	font-size: 1.5rem;
+	color: wheat;
+	
+	border: none;
+	outline: none;
+	background: transparent;
+	
+	border-bottom: 2px solid lime;
+}
+
+.auth-box button {
+	color: wheat;
+	font-size: 1.5rem;
+	
+	border: none;
+	outline: none;
+	background: transparent;
+	
+	border: 2px solid grey;
+	border-radius: 10px;
+
+	cursor: pointer;
+	
+}
+
+.auth-box button:hover {
+	color: greenyellow;
+
+}
+
+.link-box {
+	text-align: center;
+	cursor: pointer;
+	font-size: 1.125rem;
+}
+
+.link-box a {
+	text-decoration: none;
+	color: rgb(0, 193, 207);
+}
+
+.link-box a:hover {
+	text-decoration: none;
+	color: rgb(208, 255, 0);
+	text-decoration: underline;
+}
+
+
+
+
