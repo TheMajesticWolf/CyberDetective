@@ -12,7 +12,7 @@ const dotenv = require('dotenv')
 // const Chats = require('./db_schemas/Chats')
 
 // const chatRoutes = require("./routes/chatRoutes")
-// const authRoutes = require("./routes/authRoutes")
+const authRoutes = require("./routes/authRoutes")
 // const fetchRoutes = require("./routes/fetchRoutes")
 // const buildPath = path.join(__dirname, "../frontend", "build")
 
@@ -43,6 +43,8 @@ app.use(cors({
 	credentials: true
 }))
 app.use(cookieParser())
+
+app.use("/api/auth", authRoutes)
 
 
 app.get("/", (req, res) => {

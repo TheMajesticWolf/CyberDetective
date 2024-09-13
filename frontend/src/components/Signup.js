@@ -1,14 +1,47 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState, useContext } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import './style.css'
+import { axiosLoginInstance } from '../api/axios'
+import { AuthContext } from '../context/AuthProvider';
 
 
 const Signup = () => {
 
+	const navigate = useNavigate()
+
+	const { authContext, setAuthContext } = useContext(AuthContext)
 
 
 
 	let sendDataToServer = async () => {
+
+		try {
+			let response = await axiosLoginInstance.post("/api/auth/signup",
+				formData,
+				{
+					headers: {
+						"Content-Type": "application/json"
+					}
+				}
+			)
+
+			let jsonData = response.data
+
+			if (jsonData?.success) {
+				setAuthContext({
+					isloggedin: true 
+				})
+				localStorage.setItem("isloggedin", true)
+				localStorage.setItem("username", formData["username"])
+				navigate("/chat")
+			}
+
+		}
+
+		catch (error) {
+			alert(error?.response?.data?.message)
+		}
+
 
 	}
 
@@ -19,33 +52,35 @@ const Signup = () => {
 	})
 
 	let clearForm = () => {
-		
+
 		setFormData({
-				username: "",
-				password: "",
-				email: ""
+			username: "",
+			password: "",
+			email: ""
 		})
 
 	}
 
 	let handleInputChange = (e) => {
-		
-		const {name, value} = e.target
-		
+
+		const { name, value } = e.target
+
 		setFormData((prev) => ({
 			...prev,
 			[name]: value
 		}))
 	}
 
-	
-		
+
+
 	let handleSubmit = (e) => {
 		e.preventDefault()
 
 		console.log(formData)
 
 		clearForm()
+
+		sendDataToServer()
 	}
 
 
@@ -56,7 +91,7 @@ const Signup = () => {
 
 				<div className="auth-box">
 					<label htmlFor="username">Username</label>
-					<input id="username" placeholder="Enter your username" type="text" name="username"  onChange={handleInputChange} value={formData["username"]} />
+					<input id="username" placeholder="Enter your username" type="text" name="username" onChange={handleInputChange} value={formData["username"]} />
 				</div>
 
 				<div className="auth-box">

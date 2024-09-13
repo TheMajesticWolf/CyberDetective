@@ -1,12 +1,47 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useContext, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import './style.css'
+import { axiosLoginInstance } from '../api/axios'
+import { AuthContext } from '../context/AuthProvider'
+
 
 
 const Login = () => {
 
-	let sendDataToServer = async () => {
+	const navigate = useNavigate()
 
+	const {authContext, setAuthContext} = useContext(AuthContext)
+
+
+	let sendDataToServer = async () => {
+		try {
+			let response = await axiosLoginInstance.post("/api/auth/login",
+				formData,
+				{
+					headers: {
+						"Content-Type": "application/json"
+					}
+				}
+			)
+
+			let jsonData = response.data
+
+			if (jsonData?.success) {
+				setAuthContext({
+					isloggedin: true
+				})
+				navigate("/chat")
+				
+				localStorage.setItem("isloggedin", JSON.stringify(true));
+				localStorage.setItem("username", formData["username"]);
+			}
+
+		}
+
+		catch (error) {
+			console.log(error)
+			alert(error?.response?.data?.message)
+		}
 	}
 
 	const [formData, setFormData] = useState({
@@ -15,32 +50,34 @@ const Login = () => {
 	})
 
 	let clearForm = () => {
-		
+
 		setFormData({
-				username: "",
-				password: ""
+			username: "",
+			password: ""
 		})
 
 	}
 
 	let handleInputChange = (e) => {
-		
-		const {name, value} = e.target
-		
+
+		const { name, value } = e.target
+
 		setFormData((prev) => ({
 			...prev,
 			[name]: value
 		}))
 	}
 
-	
-		
+
+
 	let handleSubmit = (e) => {
 		e.preventDefault()
 
 		console.log(formData)
 
 		clearForm()
+
+		sendDataToServer()
 	}
 
 
@@ -51,12 +88,12 @@ const Login = () => {
 
 				<div className="auth-box">
 					<label htmlFor="username">Username</label>
-					<input id="username" placeholder="Enter your username" type="text" onChange={handleInputChange} name="username" value={formData["username"]}/>
+					<input id="username" placeholder="Enter your username" type="text" onChange={handleInputChange} name="username" value={formData["username"]} />
 				</div>
 
 				<div className="auth-box">
 					<label htmlFor="password">Password</label>
-					<input id="password" placeholder="Enter your password" type="password" onChange={handleInputChange} name="password" value={formData["password"]}/>
+					<input id="password" placeholder="Enter your password" type="password" onChange={handleInputChange} name="password" value={formData["password"]} />
 				</div>
 
 
