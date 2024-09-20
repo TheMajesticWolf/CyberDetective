@@ -6,16 +6,14 @@
 	padding: 0;
 	box-sizing: border-box;
 	font-family: "Baloo 2", sans-serif;
-
-
 }
 
 body {
-
-	background-image: url("https://w.wallhaven.cc/full/qz/wallhaven-qzvx77.jpg");
-	/* background-position: center; */
-	background-repeat: no-repeat;
-	background-size: cover;
+	
+	background-color: black
+	/* background-image: url("https://w.wallhaven.cc/full/qz/wallhaven-qzvx77.jpg"); */
+	/* background-repeat: no-repeat; */
+	/* background-size: cover; */
 }
 
 
@@ -105,6 +103,144 @@ body {
 	text-decoration: underline;
 }
 
+/***************************************************/
+/* Start of home page */
+/***************************************************/
+
+.overall-container {
+	/* background-color: cyan !important; */
+	height: 100vh;
+	width: 100vw;
+	
+	/* overflow: hidden; */
+
+	display: flex;
+	flex-direction: row;
+}
+
+.center-panel-container {
+	width: 88%;
+	display: flex;
+	flex-direction: column;
+
+}
+
+
+.left-panel-container {
+	display: flex;
+	flex-direction: column;
+	background-color: grey;
+	width: 12%;
+	height: 100vh;
+
+}
+
+.navigation-menu {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	
+}
+
+.navigation-box {
+	width: 100%;
+	padding: 10px;
+	margin: 3px 0px;
+}
+
+.navigation-box-button {
+	width: 100%;
+}
+
+
+.navigation-box button {
+	color: antiquewhite;
+	font-size: 1.45rem;
+	background: transparent;
+	outline: none;
+	border: none;
+	width: 100%;
+	cursor: pointer;
+}
 
 
 
+.title {
+	font-size: 1.75rem;
+	color: antiquewhite;
+	text-align: center;
+}
+
+.response-box {
+	flex: 1;
+	border: 2px solid red;
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	overflow: scroll;
+
+	padding: 10px;
+}
+
+.response-item {
+	/* background-color: cyan; */
+	border: 2px solid oldlace;
+	border-radius: 10px;
+
+	margin-bottom: 50px;
+
+	font-size: 1.5rem;
+
+	width: 90%;
+	color: antiquewhite;
+
+}
+
+.response-output {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+
+	margin: 20px;
+}
+
+.input-box {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+}
+
+.input-box form {
+	width: 100%;
+	text-align: center;
+	}
+	
+
+.input-box-row {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+
+	margin: 30px 10px;
+}
+
+.input-box-row input,
+.input-box-row textarea,
+.input-box-row select {
+	
+	flex: 1;
+	font-size: 1.75rem;
+	max-width: 90%;
+	/* margin: 0px auto 0px auto; */
+	margin: 0px 10px 0px 10px;
+	
+	color: antiquewhite;
+	
+	background: none;
+	outline: transparent;
+	border: none;
+	border-bottom: 2px solid purple;
+}
