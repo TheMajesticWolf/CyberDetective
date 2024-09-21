@@ -33,4 +33,10 @@ This project is a **web-based Question-Answering (QA) application** aimed at ass
 7. ```npm i```
 8. ```npm start```
 
+## References
+- [AttackER: Towards Enhancing Cyber-Attack Attribution with a Named Entity Recognition Dataset](https://arxiv.org/pdf/2408.05149v1)
+- [A RAG-Based Question-Answering Solution for Cyber-Attack Investigation and Attribution](https://arxiv.org/pdf/2408.06272)
+- [AttackER dataset](https://zenodo.org/records/10276922)
+- [Question Answer Pairs for RAG](https://github.com/sampathrajapaksha/RAG-based-QA)
+
 
