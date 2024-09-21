@@ -7,7 +7,7 @@ export const AuthContext = createContext({})
 const AuthProvider = ({ children }) => {
 
 	const [authContext, setAuthContext] = useState({
-		isloggedin: JSON.parse(localStorage.getItem("isloggedin")) || false
+		isloggedin: false || JSON.parse(localStorage.getItem("isloggedin"))
 	})
 
 	useEffect(() => {
@@ -25,6 +25,7 @@ const AuthProvider = ({ children }) => {
 			if(jsonData["success"] == false && jsonData?.response?.authenticationFailed == true) {
 				// isAuthValid = false;
 				setAuthContext({isloggedin: false})
+				return
 				// window.location.href = "/"
 			}
 			

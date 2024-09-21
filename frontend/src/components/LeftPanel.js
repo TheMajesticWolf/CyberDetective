@@ -3,23 +3,16 @@ import { Link, useNavigate } from 'react-router-dom'
 import useLogout from '../hooks/useLogout'
 
 
-const LeftPanel = ({ chatIds, currentChatIndex, setCurrentChatIndex, setResponseItems, deleteChat, createNewChat, isChatPage }) => {
+const LeftPanel = ({ chatIds, currentChatIndex, setCurrentChatId, setResponseItems, deleteChat, createNewChat, isChatPage }) => {
 
 	const navigate = useNavigate()
 	const logout = useLogout()
 
-	// useEffect(() => {
-	// handleSettingChat(3);
-	// setResponseItems(chats[0]);
-	// }, [])
 
 	let handleSettingChat = (idx) => {
 		// console.log("Idx = ", idx, setResponseItems(currentChatIndex))
 
-		setCurrentChatIndex(prev => idx)
-		// setResponseItems(chats[idx])
-
-		// console.log(responseItems)
+		setCurrentChatId(prev => idx)
 	}
 
 

@@ -14,6 +14,7 @@ const dotenv = require('dotenv')
 // const chatRoutes = require("./routes/chatRoutes")
 const authRoutes = require("./routes/authRoutes")
 const fetchRoutes = require("./routes/fetchRoutes")
+const dbRoutes = require("./routes/databaseRoutes")
 // const buildPath = path.join(__dirname, "../frontend", "build")
 
 dotenv.config()
@@ -46,6 +47,7 @@ app.use(cookieParser())
 
 app.use("/api/auth", authRoutes)
 app.use("/api/fetch", fetchRoutes)
+app.use("/api/db", dbRoutes)
 
 
 app.get("/", (req, res) => {

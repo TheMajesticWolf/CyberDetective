@@ -39,6 +39,7 @@ const Signup = () => {
 		}
 
 		catch (error) {
+			localStorage.clear()
 			alert(error?.response?.data?.message)
 		}
 

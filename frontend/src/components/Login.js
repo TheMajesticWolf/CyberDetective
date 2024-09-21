@@ -40,6 +40,7 @@ const Login = () => {
 
 		catch (error) {
 			console.log(error)
+			localStorage.clear()
 			alert(error?.response?.data?.message)
 		}
 	}

@@ -129,7 +129,7 @@ body {
 .left-panel-container {
 	display: flex;
 	flex-direction: column;
-	background-color: grey;
+	background-color: navy;
 	width: 12%;
 	height: 100vh;
 
@@ -142,7 +142,8 @@ body {
 	
 }
 
-.navigation-box {
+.navigation-box,
+.previous-chat-box {
 	width: 100%;
 	padding: 10px;
 	margin: 3px 0px;
@@ -153,7 +154,8 @@ body {
 }
 
 
-.navigation-box button {
+.navigation-box button,
+.previous-chat-box button {
 	color: antiquewhite;
 	font-size: 1.45rem;
 	background: transparent;
@@ -163,6 +165,14 @@ body {
 	cursor: pointer;
 }
 
+.previous-chat-box {
+	display: flex;
+	/* overflow: scroll; */
+}
+
+.previous-chats-menu {
+	overflow-y: scroll;
+}
 
 
 .title {
@@ -291,5 +301,9 @@ body {
 	font-size: 30px;
 	font-weight: bold;
 	text-align: center;
+
+}
+
+.previous-chat-box {
 
 }
