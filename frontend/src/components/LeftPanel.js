@@ -19,7 +19,7 @@ const LeftPanel = ({ chatIds, currentChatId, setCurrentChatId, setResponseItems,
 
 	return (
 
-		<div className="left-panel-container">
+		<div className="left-panel-container futuristic-border">
 
 			<div className="navigation-menu">
 

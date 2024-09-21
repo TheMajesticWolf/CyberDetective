@@ -206,19 +206,20 @@ const HomePage = () => {
 			<div className="center-panel-container">
 				<Title subtitle={"Test subtitle"} />
 
-				<div className="response-box">
+				<div className="response-box futuristic-border">
 
 					<RenderOutput frontendList={responseItems} />
 
 
 				</div>
 
-				<div className="input-box">
+				<div className="input-box futuristic-border">
 
 					<form onSubmit={handleSubmit}>
 
 						<div className="input-box-row">
 							<input type="text" name="" id="" placeholder="Enter your text" value={userQuestion} onChange={(e) => setUserQuestion(e.target.value)} />
+							{/* <textarea name="" id="" placeholder="Enter your text" value={userQuestion} onChange={(e) => setUserQuestion(e.target.value)} /> */}
 
 							<select name="" id="" value={analysisType} onChange={(e) => setAnalysisType(e.target.value)}>
 								<option value="ner">Named Entity Recognition</option>

@@ -10,10 +10,10 @@
 
 body {
 	
-	background-color: black
-	/* background-image: url("https://w.wallhaven.cc/full/qz/wallhaven-qzvx77.jpg"); */
-	/* background-repeat: no-repeat; */
-	/* background-size: cover; */
+	/* background-color: black */
+	background-image: url("https://w.wallhaven.cc/full/qz/wallhaven-qzvx77.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
 }
 
 
@@ -127,9 +127,12 @@ body {
 
 
 .left-panel-container {
+
+	backdrop-filter: blur(15px) brightness(0.9);
+	background: rgba(0, 0, 0, 0.6);
+
 	display: flex;
 	flex-direction: column;
-	background-color: navy;
 	width: 12%;
 	height: 100vh;
 
@@ -165,6 +168,15 @@ body {
 	cursor: pointer;
 }
 
+.navigation-box-button:hover {
+	color: cyan;
+	text-decoration: underline;
+
+	background: linear-gradient(90deg, white, violet, indigo, blue, lime, yellow, orange, red, black);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
 .previous-chat-box {
 	display: flex;
 	/* overflow: scroll; */
@@ -179,11 +191,21 @@ body {
 	font-size: 1.75rem;
 	color: antiquewhite;
 	text-align: center;
+	background: linear-gradient(to right, white, #00ffcc, #00ffff, #9933ff, #ff3399, #ff0066, #cc00ff, #0066ff);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	backdrop-filter: blur(150px) brightness(0.5);
+	border-radius: 10px;
+	
+	margin: 0px 10px;
+
 }
 
 .response-box {
 	flex: 1;
-	border: 2px solid red;
+
+	backdrop-filter: contrast(1.75);
+	background-color: rgba(0, 0, 0, 0.4);
 
 	display: flex;
 	flex-direction: column;
@@ -192,6 +214,8 @@ body {
 	overflow: scroll;
 
 	padding: 10px;
+
+	margin: 10px;
 }
 
 .response-item {
@@ -206,6 +230,7 @@ body {
 	width: 90%;
 	color: antiquewhite;
 
+	backdrop-filter: blur(50px);
 }
 
 .response-output {
@@ -220,7 +245,12 @@ body {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	width: 100%;
+	backdrop-filter: blur(15px);
+
+	border-radius: 10px;
+
+	margin: 0px 10px;
+
 }
 
 .input-box form {
@@ -275,7 +305,6 @@ body {
 
 	width: 100%;
 	text-align: center;
-	font-size: 20px;
 	border-collapse: collapse;
 
 }
@@ -306,4 +335,12 @@ body {
 
 .previous-chat-box {
 	display: flex;
+}
+
+
+
+.futuristic-border {
+	border: 1px solid rgba(0, 255, 255, 0.5);
+	border-radius: 10px;
+	box-shadow: 0 4px 20px rgba(0, 255, 255, 0.5);
 }
