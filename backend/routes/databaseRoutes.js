@@ -13,12 +13,12 @@ The data in Mongo is stored as follows
 1. There are 2 schemas - Users, Chats
 2. The "Users" schema is for storing login related info
 3. The "Chats" schema is used for storing the chats
-4. Every user has his own "Chat" object in the DB
-5. Every Chat object has the following keys: ["user_id", "title", "conversations"]
-6. Whenever a user clicks on new chat, a new conversation list is appended to the already present conversations in the DB.
-7. Every "Chat" consists of a list of conversations
-8. Every item in the conversation list is an object with the mandatory keys: ["question", "output", "return_format"] (may include additional keys)
-9. In the frontend, a user has the ability to view every "conversation" from his/her available conversations, individually and can navigate between them
+4. Every Chat object has the following keys: ["user_id", "title", "conversations"]
+5. Whenever a user clicks on new chat, a new "Chat" obejct is created whose "user_id" key contains the value of the user_id of the user who requested the new chat.
+6. Every "Chat" consists of a list of conversations
+7. Every item in the conversation list is an object with the mandatory keys: ["question", "output", "return_format"] (may include additional keys)
+8. In the frontend, a user has the ability to view every "conversation" from his/her available conversations, individually and can navigate between them
+9. Whenever a user asks a question, the conversation object {"question": "", "output": "", "return_format": ""} gets appended to the current conversation list
 
 */
 
