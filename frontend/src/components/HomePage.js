@@ -92,6 +92,19 @@ const HomePage = () => {
 
 
 	const sendDataToServer = async () => {
+
+		if(/help/.test(userQuestion)) {
+			
+			let helpObject = {
+				return_format: "help_text",
+				userQuestion: "help",
+				output: "dummy"
+			}
+			setResponseItems(prev => [...prev, helpObject])
+			return
+		}
+
+
 		let data = {
 			userQuestion: userQuestion,
 			analysisType: analysisType
