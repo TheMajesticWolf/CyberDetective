@@ -7,6 +7,21 @@ let router = express.Router()
 
 router.use(authenticateToken)
 
+/*
+The data in Mongo is stored as follows
+
+1. There are 2 schemas - Users, Chats
+2. The "Users" schema is for storing login related info
+3. The "Chats" schema is used for storing the chats
+4. Every user has his own "Chat" object in the DB
+5. Every Chat object has the following keys: ["user_id", "title", "conversations"]
+6. Whenever a user clicks on new chat, a new conversation list is appended to the already present conversations in the DB.
+7. Every "Chat" consists of a list of conversations
+8. Every item in the conversation list is an object with the mandatory keys: ["question", "output", "return_format"] (may include additional keys)
+9. In the frontend, a user has the ability to view every "conversation" from his/her available conversations, individually and can navigate between them
+
+*/
+
 router.post("/create-new-chat", async (req, res) => {
 
 	let user_id = req.user_id
@@ -20,9 +35,6 @@ router.post("/create-new-chat", async (req, res) => {
 		"user_id": user_id,
 		"conversations": [
 
-			// 	{ question: "Q1", output: "A1", response_format: "string", "conversation_id": "conv1",},
-			// 	{ question: "Q2", output: "A2", response_format: "string", "conversation_id": "conv2",},
-			// 	{ question: "Q3", output: "A3", response_format: "string", "conversation_id": "conv3",}
 		]
 	})
 
