@@ -9,7 +9,7 @@ const createAuthToken = (userObject) => {
 		username: userObject["username"],
 		user_id: userObject["user_id"]
 	}, process.env.ACCESS_TOKEN_SECRET, {
-		expiresIn: 5
+		expiresIn: 60 * 10
 	})
 
 }
@@ -19,7 +19,7 @@ const createRefreshToken = (userObject) => {
 		username: userObject["username"],
 		user_id: userObject["user_id"]
 	}, process.env.REFRESH_TOKEN_SECRET, {
-		expiresIn: 60 * 10
+		expiresIn: 60 * 20
 	})
 
 }
@@ -29,7 +29,7 @@ const authenticateToken = (req, res, next) => {
 	// let accessToken = req.headers["authorization"] && req.headers["authorization"].split(" ")[1]
 	let accessToken = req.cookies["accessToken"]
 
-	// console.log("Here: ", accessToken)
+	console.log("Here: ", accessToken)
 
 	jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET, (err, userObj) => {
 		if (err) {

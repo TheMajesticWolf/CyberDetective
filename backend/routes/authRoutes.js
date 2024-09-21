@@ -1,4 +1,5 @@
 const express = require('express')
+const jwt = require('jsonwebtoken')
 const Users = require('../db_schemas/Users')
 const { createAuthToken, createRefreshToken } = require('../authorisation/authorisationUtilities')
 
