@@ -305,5 +305,5 @@ body {
 }
 
 .previous-chat-box {
-
+	display: flex;
 }

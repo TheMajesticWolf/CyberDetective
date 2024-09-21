@@ -3,14 +3,14 @@ import { Link, useNavigate } from 'react-router-dom'
 import useLogout from '../hooks/useLogout'
 
 
-const LeftPanel = ({ chatIds, currentChatIndex, setCurrentChatId, setResponseItems, deleteChat, createNewChat, isChatPage }) => {
+const LeftPanel = ({ chatIds, currentChatId, setCurrentChatId, setResponseItems, deleteChat, createNewChat, isChatPage }) => {
 
 	const navigate = useNavigate()
 	const logout = useLogout()
 
 
 	let handleSettingChat = (idx) => {
-		// console.log("Idx = ", idx, setResponseItems(currentChatIndex))
+		// console.log("Idx = ", idx, setResponseItems(currentChatId))
 
 		setCurrentChatId(prev => idx)
 	}
@@ -30,7 +30,7 @@ const LeftPanel = ({ chatIds, currentChatIndex, setCurrentChatId, setResponseIte
 
 
 				{(isChatPage == true) && <div className="navigation-box">
-					<button className="navigation-box-button" type="button" onClick={(e) => { createNewChat(); handleSettingChat(currentChatIndex) }}><b>New Chat</b> + </button>
+					<button className="navigation-box-button" type="button" onClick={(e) => { createNewChat(); handleSettingChat(currentChatId) }}><b>New Chat</b> + </button>
 				</div>}
 
 				{(isChatPage == true) && <div className="navigation-box">
@@ -57,7 +57,7 @@ const LeftPanel = ({ chatIds, currentChatIndex, setCurrentChatId, setResponseIte
 
 				{Array.isArray(chatIds) && chatIds.length != 0 && chatIds.map((obj, idx) => (
 					<div className="previous-chat-box" key={idx}>
-						{obj["_id"] == currentChatIndex ? <button onClick={(e) => handleSettingChat(obj["_id"])} style={{ "fontSize": "30px", color: "lime", textDecoration: "underline", fontWeight: "bold" }}>{obj["title"]}</button> :
+						{obj["_id"] == currentChatId ? <button onClick={(e) => handleSettingChat(obj["_id"])} style={{ "fontSize": "30px", color: "lime", textDecoration: "underline", fontWeight: "bold" }}>{obj["title"]}</button> :
 							<button onClick={(e) => handleSettingChat(obj["_id"])} style={{ "fontSize": "30px", color: "grey" }}>{obj["title"]}</button>}
 						<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="50" viewBox="0,0,256,256">
 							<g fill="#ffffff" fillRule="nonzero" stroke="none" strokeWidth="1" strokeLinecap="butt" strokeLinejoin="miter" strokeMiterlimit="10" fontFamily="none" fontWeight="none" fontSize="none" textAnchor="none" style={{ mixBlendMode: 'normal' }}>

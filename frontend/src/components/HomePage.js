@@ -14,7 +14,7 @@ const HomePage = () => {
 
 	const [responseItems, setResponseItems] = useState([])
 
-	const [currentChatIndex, setCurrentChatId] = useState("")
+	const [currentChatId, setCurrentChatId] = useState("")
 	const [chatIds, setChatIds] = useState([])
 
 	const logout = useLogout()
@@ -65,12 +65,12 @@ const HomePage = () => {
 				// console.log(chatIds)
 
 				// let newCurrentChatIdx = chatIds[chatIds.length - 1]["_id"]
-				// console.log(newCurrentChatIdx, currentChatIndex)
+				// console.log(newCurrentChatIdx, currentChatId)
 				// setCurrentChatId(newCurrentChatIdx)
 
-				// console.log(newCurrentChatIdx, currentChatIndex)
+				// console.log(newCurrentChatIdx, currentChatId)
 
-				let response = await axiosInstance.get(`/api/db/fetch-chat/${currentChatIndex}`, {
+				let response = await axiosInstance.get(`/api/db/fetch-chat/${currentChatId}`, {
 					// headers: {
 					// 	"Authorization": `Bearer ${localStorage.getItem("accessToken")}`
 					// }
@@ -88,7 +88,7 @@ const HomePage = () => {
 
 		fetchDataFromServer()
 
-	}, [chatIds, currentChatIndex])
+	}, [chatIds, currentChatId])
 
 
 	const sendDataToServer = async () => {
@@ -118,7 +118,7 @@ const HomePage = () => {
 
 		setResponseItems(prev => [...prev, jsonData?.response])
 
-		response = await axiosInstance.post(`/api/db/update-chat/${currentChatIndex}`, {
+		response = await axiosInstance.post(`/api/db/update-chat/${currentChatId}`, {
 				"newConversationObj": jsonData["response"]
 			},
 			{}
@@ -167,7 +167,7 @@ const HomePage = () => {
 			return
 		}
 
-		let response = await axiosInstance.delete(`/api/db/delete-chat/${currentChatIndex}`, {
+		let response = await axiosInstance.delete(`/api/db/delete-chat/${currentChatId}`, {
 			// headers: {
 			// 	"Authorization": `Bearer ${localStorage.getItem("accessToken")}`
 			// }
@@ -201,7 +201,7 @@ const HomePage = () => {
 	return (
 		<div className="overall-container">
 
-			<LeftPanel setResponseItems={setResponseItems} createNewChat={createNewChat} currentChatIndex={currentChatIndex} chatIds={chatIds} setCurrentChatId={setCurrentChatId}  isChatPage={true} deleteChat={deleteChat}/>
+			<LeftPanel setResponseItems={setResponseItems} createNewChat={createNewChat} currentChatId={currentChatId} chatIds={chatIds} setCurrentChatId={setCurrentChatId}  isChatPage={true} deleteChat={deleteChat}/>
 
 			<div className="center-panel-container">
 				<Title subtitle={"Test subtitle"} />
