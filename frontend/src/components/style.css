@@ -11,7 +11,8 @@
 body {
 	
 	/* background-color: black */
-	background-image: url("https://w.wallhaven.cc/full/qz/wallhaven-qzvx77.jpg");
+	/* background-image: url("https://w.wallhaven.cc/full/qz/wallhaven-qzvx77.jpg"); */
+	background-image: url("../../public/images/cyber.jpg");
 	background-repeat: no-repeat;
 	background-size: cover;
 }
