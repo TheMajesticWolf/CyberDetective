@@ -4,7 +4,8 @@ import LeftPanel from './LeftPanel'
 import Title from './Title'
 import RenderOutput from './RenderOutput'
 import axiosInstance from '../api/axios'
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const HomePage = () => {
@@ -142,7 +143,13 @@ const HomePage = () => {
 		e.preventDefault()
 
 		if (!userQuestion) {
-			alert("Enter valid data")
+			// alert("Enter valid data")
+			toast("Please enter valid data", {
+				type: "error",
+				type: "warning",
+				hideProgressBar: true,
+				autoClose: 2000
+			})
 			return
 		}
 
@@ -176,7 +183,11 @@ const HomePage = () => {
 	let deleteChat = async () => {
 
 		if (chatIds.length == 1) {
-			alert("You need to have atleast one chat")
+			toast("You need to have atleast one chat", {
+				type: "error",
+				autoClose: 2000,
+				hideProgressBar: true
+			})
 			return
 		}
 

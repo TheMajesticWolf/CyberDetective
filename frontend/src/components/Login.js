@@ -3,7 +3,8 @@ import { Link, useNavigate } from 'react-router-dom'
 import './style.css'
 import { axiosLoginInstance } from '../api/axios'
 import { AuthContext } from '../context/AuthProvider'
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const Login = () => {
@@ -41,7 +42,12 @@ const Login = () => {
 		catch (error) {
 			console.log(error)
 			localStorage.clear()
-			alert(error?.response?.data?.message)
+			// alert(error?.response?.data?.message)
+			toast(error?.response?.data?.message, {
+				type: "error",
+				hideProgressBar: true,
+				autoClose: 2000
+			})
 		}
 	}
 

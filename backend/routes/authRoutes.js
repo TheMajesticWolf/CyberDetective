@@ -105,7 +105,7 @@ router.post("/signup", async (req, res) => {
 	}
 	catch (err) {
 		console.log(`Error in /signup: ${err}`)
-		res.status(500).json({ success: false })
+		res.status(500).json({ success: false, message: "An error occured during registration. Please try again" })
 
 	}
 

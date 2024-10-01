@@ -2,7 +2,8 @@ import { useContext } from 'react'
 import axiosInstance from '../api/axios'
 import { useNavigate } from 'react-router'
 import { AuthContext } from '../context/AuthProvider'
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const useLogout = () => {
 
@@ -20,7 +21,11 @@ const useLogout = () => {
 			localStorage.clear()
 			setAuthContext({ isloggedin: false })
 			navigate("/", { replace: true })
-			alert("Logged out successfully")
+			toast("Logged out successfully", {
+				type: "success",
+				hideProgressBar: true,
+				autoClose: 2000
+			})
 		}
 
 	}
