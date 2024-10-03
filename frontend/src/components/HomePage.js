@@ -11,7 +11,7 @@ import 'react-toastify/dist/ReactToastify.css';
 const HomePage = () => {
 
 	const [userQuestion, setUserQuestion] = useState("")
-	const [analysisType, setAnalysisType] = useState("ner")
+	const [analysisType, setAnalysisType] = useState("ner-rfc")
 
 	const [responseItems, setResponseItems] = useState([])
 
@@ -124,7 +124,7 @@ const HomePage = () => {
 
 		let url = ""
 
-		if(analysisType === "ner") {
+		if(/^ner/i.test(analysisType)) {
 			url = "/api/fetch/perform-ner"
 		}
 		else {
@@ -267,7 +267,8 @@ const HomePage = () => {
 							{/* <textarea name="" id="" placeholder="Enter your text" value={userQuestion} onChange={(e) => setUserQuestion(e.target.value)} /> */}
 
 							<select name="" id="" value={analysisType} onChange={(e) => setAnalysisType(e.target.value)}>
-								<option value="ner">Named Entity Recognition</option>
+								<option value="ner-freq">NER - Frequency Based</option>
+								<option value="ner-rfc">NER - Random Forest</option>
 								<option value="rag_qa">RAG Based QA</option>
 							</select>
 
