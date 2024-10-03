@@ -217,6 +217,9 @@ body {
 	padding: 10px;
 
 	margin: 10px;
+	/* background-image: url("/home/aditya/gitclones/Wallpaper-Bank/wallpapers/Custom-Wallpapers/conjuring.jpg");
+	background-repeat: no-repeat;
+	background-size: cover; */
 }
 
 .response-item {
@@ -344,4 +347,9 @@ body {
 	border: 1px solid rgba(0, 255, 255, 0.5);
 	border-radius: 10px;
 	box-shadow: 0 4px 20px rgba(0, 255, 255, 0.5);
+}
+
+.loading-box {
+	font-size: 1.95rem;
+	color: orange;
 }

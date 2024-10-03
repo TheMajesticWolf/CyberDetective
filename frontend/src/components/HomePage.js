@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import useLogout from '../hooks/useLogout'
 import LeftPanel from './LeftPanel'
 import Title from './Title'
@@ -27,6 +27,14 @@ const HomePage = () => {
 		}
 
 	}
+
+	const dummy = useRef(null)
+	const scrollToBottom = () => {
+		dummy.current?.scrollIntoView({ behavior: "smooth" });
+	}
+
+	const [isInputDisabled, setIsInputDisabled] = useState(false)
+
 
 	
 	useEffect(() => {
@@ -91,6 +99,9 @@ const HomePage = () => {
 
 	}, [chatIds, currentChatId])
 
+	useEffect(() => {
+		scrollToBottom();
+	}, [responseItems])
 
 	const sendDataToServer = async () => {
 
@@ -131,6 +142,8 @@ const HomePage = () => {
 		isAuthenticated(jsonData)
 
 		setResponseItems(prev => [...prev, jsonData?.response])
+		
+		setIsInputDisabled(true)
 
 		response = await axiosInstance.post(`/api/db/update-chat/${currentChatId}`, {
 				"newConversationObj": jsonData["response"]
@@ -139,7 +152,7 @@ const HomePage = () => {
 		)
 	}
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault()
 
 		if (!userQuestion) {
@@ -152,8 +165,11 @@ const HomePage = () => {
 			})
 			return
 		}
-
-		sendDataToServer()
+		
+		setUserQuestion("")
+		setIsInputDisabled(true)
+		await sendDataToServer()
+		setIsInputDisabled(false)
 
 	}
 
@@ -234,6 +250,11 @@ const HomePage = () => {
 
 					<RenderOutput frontendList={responseItems} />
 
+					<div ref={dummy} className="loading-box" style={{ display: (isInputDisabled == true ? "block" : "none") }}>
+						<p>Loading...</p>
+					</div>
+					<div ref={dummy}></div>
+
 
 				</div>
 
@@ -242,7 +263,7 @@ const HomePage = () => {
 					<form onSubmit={handleSubmit}>
 
 						<div className="input-box-row">
-							<input type="text" name="" id="" placeholder="Enter your text" value={userQuestion} onChange={(e) => setUserQuestion(e.target.value)} />
+							<input type="text" name="" id="" placeholder="Enter your text" disabled={isInputDisabled} value={userQuestion} onChange={(e) => setUserQuestion(e.target.value)} />
 							{/* <textarea name="" id="" placeholder="Enter your text" value={userQuestion} onChange={(e) => setUserQuestion(e.target.value)} /> */}
 
 							<select name="" id="" value={analysisType} onChange={(e) => setAnalysisType(e.target.value)}>
