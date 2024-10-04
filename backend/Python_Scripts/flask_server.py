@@ -63,7 +63,7 @@ class MyPredictor:
 			return self.predict_freq(sentence)
 		
 		else:
-			raise ValueError("Invalid annotation type. Use 'ml' for ML-based or 'freq' for frequency-based.")
+			raise ValueError("Invalid annotation type. Use 'ner-rfc' for ML-based or 'ner-freq' for frequency-based.")
 
 
 	def perform_ner_on_data(self, user_obj: 'dict'):
@@ -120,4 +120,4 @@ def perform_ner():
 	return jsonify(out)
 
 if(__name__ == "__main__"):
-	app.run(host="127.0.0.1", debug=True, port=5000)
+	app.run(host="127.0.0.1", debug=True, port=5000, threaded=True)
