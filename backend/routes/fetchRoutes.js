@@ -1,6 +1,7 @@
 const express = require('express')
 const { spawn } = require('child_process')
 const { authenticateToken } = require('../authorisation/authorisationUtilities')
+const axios = require('axios').default
 
 const router = express.Router()
 
@@ -46,7 +47,11 @@ router.post("/perform-ner", async (req, res) => {
 		analysisType: req.body.analysisType,
 	}
 
-	let pythonOutput = await executeScript("./Python_Scripts/ner.py", userObj)
+	// let pythonOutput = await executeScript("./Python_Scripts/ner.py", userObj)
+	
+	let response = await axios.post(`${process.env.FLASK_URL}/perform-ner`, userObj)
+	
+	let pythonOutput = response.data
 
 	res.status(200).json({ success: true, response: pythonOutput })
 
