@@ -24,7 +24,11 @@ const LeftPanel = ({ chatIds, currentChatId, setCurrentChatId, setResponseItems,
 			<div className="navigation-menu">
 
 				<div className="navigation-box">
-					<button className="navigation-box-button" type="button" onClick={() => navigate("/chat")}>Chat </button>
+					<button className="navigation-box-button" type="button" onClick={() => navigate("/rag-based-qa")}>Chat </button>
+				</div>
+
+				<div className="navigation-box">
+					<button className="navigation-box-button" type="button" onClick={() => navigate("/named-entity-recognition")}>NER </button>
 				</div>
 
 

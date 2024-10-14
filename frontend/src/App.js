@@ -6,6 +6,7 @@ import HomePage from './components/HomePage';
 import PrivateRoutes from './components/PrivateRoutes';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import ChatPageQA from './components/ChatPageQA';
 
 function App() {
 	return (
@@ -19,7 +20,8 @@ function App() {
 				<Route path="/signup" element={<Signup />}></Route>
 
 				<Route element={<PrivateRoutes />}>
-					<Route path="/chat" element={<HomePage />}></Route>
+					<Route path="/named-entity-recognition" element={<HomePage />}></Route>
+					<Route path="/rag-based-qa" element={<ChatPageQA />}></Route>
 				</Route>
 
 

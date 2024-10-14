@@ -26,7 +26,7 @@ router.post("/create-new-chat", async (req, res) => {
 
 	let user_id = req.user_id
 
-	console.log(user_id)
+	// console.log(`Created new chat of type: ${req.body.chatType}`)
 
 
 
@@ -35,7 +35,8 @@ router.post("/create-new-chat", async (req, res) => {
 		"user_id": user_id,
 		"conversations": [
 
-		]
+		],
+		chatType: req.body.chatType
 	})
 
 	let out = await newChat.save()
@@ -72,8 +73,7 @@ router.get("/fetch-chat-ids", async (req, res) => {
 	let user_id = req.user_id
 
 
-
-	let out = await Chats.find({ user_id: user_id }).select(["_id", "title"])
+	let out = await Chats.find({ user_id: user_id, chatType: req.query.chatType }).select(["_id", "title"])
 
 
 	res.status(200).send({ success: true, response: out })

@@ -31,7 +31,7 @@ const Login = () => {
 				setAuthContext({
 					isloggedin: true
 				})
-				navigate("/chat")
+				navigate("/rag-based-qa")
 				
 				localStorage.setItem("isloggedin", JSON.stringify(true));
 				localStorage.setItem("username", formData["username"]);

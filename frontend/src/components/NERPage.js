@@ -6,27 +6,19 @@ import RenderOutput from './RenderOutput'
 import axiosInstance from '../api/axios'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import useChat from '../hooks/useChat'
 
 
 const HomePage = () => {
 
-	const [userQuestion, setUserQuestion] = useState("")
-	const [analysisType, setAnalysisType] = useState("ner-rfc")
+	const chatType = "named-entity-recognition"
 
+	const [userQuestion, setUserQuestion] = useState("")
+
+	const [analysisType, setAnalysisType] = useState("ner-rfc")
 	const [responseItems, setResponseItems] = useState([])
 
-	const [currentChatId, setCurrentChatId] = useState("")
-	const [chatIds, setChatIds] = useState([])
-
-	const logout = useLogout()
-
-	const isAuthenticated = (jsonData) => {
-
-		if (jsonData?.response?.authenticationFailed == true) {
-			logout()
-		}
-
-	}
+	const { chatIds, setChatIds, currentChatId, setCurrentChatId, createNewChat, deleteChat, isAuthenticated, fetchChatIds } = useChat(chatType);
 
 	const dummy = useRef(null)
 	const scrollToBottom = () => {
@@ -36,19 +28,13 @@ const HomePage = () => {
 	const [isInputDisabled, setIsInputDisabled] = useState(false)
 
 
-	
+
 	useEffect(() => {
 
 		let fetchDataFromServer = async () => {
 
 
-			let response = await axiosInstance.get("/api/db/fetch-chat-ids", {})
-
-
-
-			let jsonData = response?.data
-			console.log(jsonData)
-			isAuthenticated(jsonData)
+			let jsonData = await fetchChatIds()
 
 
 
@@ -79,11 +65,7 @@ const HomePage = () => {
 
 				// console.log(newCurrentChatIdx, currentChatId)
 
-				let response = await axiosInstance.get(`/api/db/fetch-chat/${currentChatId}`, {
-					// headers: {
-					// 	"Authorization": `Bearer ${localStorage.getItem("accessToken")}`
-					// }
-				})
+				let response = await axiosInstance.get(`/api/db/fetch-chat/${currentChatId}`, {})
 
 				let jsonData = response.data
 
@@ -105,8 +87,8 @@ const HomePage = () => {
 
 	const sendDataToServer = async () => {
 
-		if(/help/.test(userQuestion)) {
-			
+		if (/help/.test(userQuestion)) {
+
 			let helpObject = {
 				return_format: "help_text",
 				userQuestion: "help",
@@ -122,14 +104,7 @@ const HomePage = () => {
 			analysisType: analysisType
 		}
 
-		let url = ""
-
-		if(/^ner/i.test(analysisType)) {
-			url = "/api/fetch/perform-ner"
-		}
-		else {
-			return
-		}
+		let url = "/api/fetch/perform-ner"
 
 		let response = await axiosInstance.post(url, data, {
 			headers: {
@@ -142,12 +117,12 @@ const HomePage = () => {
 		isAuthenticated(jsonData)
 
 		setResponseItems(prev => [...prev, jsonData?.response])
-		
+
 		setIsInputDisabled(true)
 
 		response = await axiosInstance.post(`/api/db/update-chat/${currentChatId}`, {
-				"newConversationObj": jsonData["response"]
-			},
+			"newConversationObj": jsonData["response"]
+		},
 			{}
 		)
 	}
@@ -165,7 +140,7 @@ const HomePage = () => {
 			})
 			return
 		}
-		
+
 		setUserQuestion("")
 		setIsInputDisabled(true)
 		await sendDataToServer()
@@ -173,75 +148,12 @@ const HomePage = () => {
 
 	}
 
-	const createNewChat = async () => {
-		let data = {
-			userQuestion: userQuestion,
-			analysisType: analysisType
-		}
-
-
-		let response = await axiosInstance.post("/api/db/create-new-chat", data, {
-			headers: {
-				"Content-Type": "application/json"
-			}
-		})
-
-		let jsonData = response.data
-
-		isAuthenticated(jsonData)
-		
-		setChatIds(prev => [...prev, { _id: jsonData["response"]["_id"], title: jsonData["response"]["title"] }])
-
-		setCurrentChatId(jsonData["response"]["_id"])
-
-	}
-
-	let deleteChat = async () => {
-
-		if (chatIds.length == 1) {
-			toast("You need to have atleast one chat", {
-				type: "error",
-				autoClose: 2000,
-				hideProgressBar: true
-			})
-			return
-		}
-
-		let response = await axiosInstance.delete(`/api/db/delete-chat/${currentChatId}`, {
-			// headers: {
-			// 	"Authorization": `Bearer ${localStorage.getItem("accessToken")}`
-			// }
-		})
-
-		let jsonData = await response.data
-
-		isAuthenticated(jsonData)
-
-
-		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-		response = await axiosInstance.get(`/api/db/fetch-chat-ids`, {
-			// headers: {
-			// 	"Authorization": `Bearer ${localStorage.getItem("accessToken")}`
-			// }
-		})
-		jsonData = response.data
-		isAuthenticated(jsonData)
-
-		setChatIds(jsonData?.response)
-		setCurrentChatId(jsonData?.response[jsonData?.response?.length - 1]?._id)
-
-
-
-
-
-	}
 
 
 	return (
 		<div className="overall-container">
 
-			<LeftPanel setResponseItems={setResponseItems} createNewChat={createNewChat} currentChatId={currentChatId} chatIds={chatIds} setCurrentChatId={setCurrentChatId}  isChatPage={true} deleteChat={deleteChat}/>
+			<LeftPanel setResponseItems={setResponseItems} createNewChat={createNewChat} currentChatId={currentChatId} chatIds={chatIds} setCurrentChatId={setCurrentChatId} isChatPage={true} deleteChat={deleteChat} />
 
 			<div className="center-panel-container">
 				<Title subtitle={"Test subtitle"} />
