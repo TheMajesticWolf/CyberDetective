@@ -134,7 +134,7 @@ class MyPredictor:
 
 		data_to_send = {
 
-			"output": response,
+			"output": response.strip(),
 			"question": given_question,
 			"return_format": "string"
 		}
