@@ -104,6 +104,7 @@ class MyPredictor:
 	def rag_based_qa(self, user_obj: 'dict'):
 
 		given_question = user_obj["userQuestion"]
+		neighbors = int(user_obj["neighbors"])
 
 		chunks_and_embeddings_df = pd.concat([
 			pd.read_json("../../Dataset/Embeddings/malwarebytes_glossary.json"),
@@ -114,16 +115,12 @@ class MyPredictor:
 
 		embeddings = torch.tensor(embeddings,  dtype=torch.float32)
 
-
-		query = given_question
-
-		query_embedding = torch.tensor(self.embedding_model.encode(query))
+		query_embedding = torch.tensor(self.embedding_model.encode(given_question))
 
 		dot_scores = util.dot_score(a=query_embedding, b=embeddings)
 
-		top_results = torch.topk(dot_scores, k=5)
+		top_results = torch.topk(dot_scores, k=neighbors)
 
-		top_results
 
 		relavant = chunks_and_embeddings_df.iloc[top_results.indices.tolist()[0]]["chunk"].tolist()
 

@@ -63,8 +63,10 @@ router.post("/perform-ner", async (req, res) => {
 router.post("/rag-based-qa", async (req, res) => {
 	let userObj = {
 		userQuestion: req.body.userQuestion,
-		analysisType: req.body.analysisType,
+		neighbors: req.body.neighbors,
 	}
+
+	console.log(userObj)
 
 	// let pythonOutput = await executeScript("./Python_Scripts/ner.py", userObj)
 	

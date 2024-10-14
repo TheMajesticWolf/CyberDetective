@@ -181,10 +181,10 @@ const ChatPageQA = () => {
 							<input type="text" name="" id="" placeholder="Enter your text" disabled={isInputDisabled} value={userQuestion} onChange={(e) => setUserQuestion(e.target.value)} />
 							{/* <textarea name="" id="" placeholder="Enter your text" value={userQuestion} onChange={(e) => setUserQuestion(e.target.value)} /> */}
 
-							<select name="" id="" value={neighbors} onChange={(e) => setNeighbors(e.target.value)}>
+							<select name="" id="" value={neighbors} onChange={(e) => setNeighbors(parseInt(e.target.value, 10))}>
 								{
 									validNeighbors.map((neighbor, idx) => (
-										<option value={`${neighbor}`}>Nearest {neighbor} neighbor(s)</option>
+										<option value={neighbor}>Nearest {neighbor} neighbor(s)</option>
 
 									))
 								}
