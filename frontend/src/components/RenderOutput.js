@@ -21,8 +21,8 @@ const RenderOutput = ({ frontendList }) => {
 								<p>{object["question"]}</p>
 							</div>
 							<div className="response-output">
-								<p><b><u>CricketLLM</u></b></p>
-								<p>{object["output"]}</p>
+								<p><b><u>RAG Based QA</u></b></p>
+								<pre style={{whiteSpace: "break-spaces"}}>{object["output"]}</pre>
 
 							</div>
 

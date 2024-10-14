@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import useLogout from '../hooks/useLogout'
 
 
@@ -7,6 +7,7 @@ const LeftPanel = ({ chatIds, currentChatId, setCurrentChatId, setResponseItems,
 
 	const navigate = useNavigate()
 	const logout = useLogout()
+	const location = useLocation()
 
 
 	let handleSettingChat = (idx) => {
@@ -24,11 +25,11 @@ const LeftPanel = ({ chatIds, currentChatId, setCurrentChatId, setResponseItems,
 			<div className="navigation-menu">
 
 				<div className="navigation-box">
-					<button className="navigation-box-button" type="button" onClick={() => navigate("/rag-based-qa")}>Chat </button>
+					<button className={`navigation-box-button ${location.pathname === "/rag-based-qa" ? 'active' : ''}`} type="button" onClick={() => navigate("/rag-based-qa")}>Chat </button>
 				</div>
 
 				<div className="navigation-box">
-					<button className="navigation-box-button" type="button" onClick={() => navigate("/named-entity-recognition")}>NER </button>
+					<button className={`navigation-box-button ${location.pathname === "/named-entity-recognition" ? 'active' : ''}`} type="button" onClick={() => navigate("/named-entity-recognition")}>NER </button>
 				</div>
 
 

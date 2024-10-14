@@ -181,7 +181,6 @@ const HomePage = () => {
 							<select name="" id="" value={analysisType} onChange={(e) => setAnalysisType(e.target.value)}>
 								<option value="ner-freq">NER - Frequency Based</option>
 								<option value="ner-rfc">NER - Random Forest</option>
-								<option value="rag_qa">RAG Based QA</option>
 							</select>
 
 						</div>

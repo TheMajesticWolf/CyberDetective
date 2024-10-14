@@ -178,6 +178,15 @@ body {
 	-webkit-text-fill-color: transparent;
 }
 
+.navigation-box-button.active {
+	
+	background: linear-gradient(90deg, white, violet, indigo, blue, lime, yellow, orange, red, black);
+	font-weight: bolder;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+    
+}
+
 .previous-chat-box {
 	display: flex;
 	/* overflow: scroll; */
