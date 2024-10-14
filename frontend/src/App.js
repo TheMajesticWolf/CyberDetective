@@ -2,7 +2,7 @@ import './App.css';
 import {BrowserRouter as Router, Routes, Route, Outlet, BrowserRouter} from 'react-router-dom';
 import Login from './components/Login';
 import Signup from './components/Signup';
-import HomePage from './components/HomePage';
+import NERPage from './components/NERPage';
 import PrivateRoutes from './components/PrivateRoutes';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -20,7 +20,7 @@ function App() {
 				<Route path="/signup" element={<Signup />}></Route>
 
 				<Route element={<PrivateRoutes />}>
-					<Route path="/named-entity-recognition" element={<HomePage />}></Route>
+					<Route path="/named-entity-recognition" element={<NERPage />}></Route>
 					<Route path="/rag-based-qa" element={<ChatPageQA />}></Route>
 				</Route>
 
