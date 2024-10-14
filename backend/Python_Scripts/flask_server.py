@@ -3,6 +3,11 @@ import json
 import sys
 import joblib
 from sentence_transformers import SentenceTransformer
+from sentence_transformers import  util
+import pandas as pd
+import torch
+import numpy as np
+
 
 class MyPredictor:
 
@@ -96,6 +101,53 @@ class MyPredictor:
 		# sys.stdout.write(json.dumps(to_send))
 
 
+	def rag_based_qa(self, user_obj: 'dict'):
+
+		given_question = user_obj["userQuestion"]
+
+		chunks_and_embeddings_df = pd.concat([
+			pd.read_json("../../Dataset/Embeddings/malwarebytes_glossary.json"),
+			
+		], ignore_index=True)
+
+		embeddings = np.array(chunks_and_embeddings_df["embedding"].to_list())
+
+		embeddings = torch.tensor(embeddings,  dtype=torch.float32)
+
+
+		query = given_question
+
+		query_embedding = torch.tensor(self.embedding_model.encode(query))
+
+		dot_scores = util.dot_score(a=query_embedding, b=embeddings)
+
+		top_results = torch.topk(dot_scores, k=5)
+
+		top_results
+
+		relavant = chunks_and_embeddings_df.iloc[top_results.indices.tolist()[0]]["chunk"].tolist()
+
+		response = ""
+
+		for answer in relavant:
+			answer = answer.replace("Answer:", "").strip()
+			response += answer + "\n\n"
+
+		
+
+		data_to_send = {
+
+			"output": response,
+			"question": given_question,
+			"return_format": "string"
+		}
+
+
+		return data_to_send
+
+			
+
+
 
 app = Flask(__name__)
 
@@ -119,5 +171,18 @@ def perform_ner():
 
 	return jsonify(out)
 
+@app.route("/rag-based-qa", methods=["POST"])
+def rag_based_qa():
+	
+	user_obj = request.get_json()
+
+	print(user_obj)
+
+	out = predictor.rag_based_qa(user_obj)
+
+	return jsonify(out)
+
+
+
 if(__name__ == "__main__"):
-	app.run(host="127.0.0.1", debug=True, port=5000, threaded=True)
+	app.run(host="0.0.0.0", debug=True, port=5000, threaded=True)

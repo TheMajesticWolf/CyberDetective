@@ -59,4 +59,23 @@ router.post("/perform-ner", async (req, res) => {
 })
 
 
+
+router.post("/rag-based-qa", async (req, res) => {
+	let userObj = {
+		userQuestion: req.body.userQuestion,
+		analysisType: req.body.analysisType,
+	}
+
+	// let pythonOutput = await executeScript("./Python_Scripts/ner.py", userObj)
+	
+	let response = await axios.post(`${process.env.FLASK_URL}/rag-based-qa`, userObj)
+	
+	let pythonOutput = response.data
+
+	res.status(200).json({ success: true, response: pythonOutput })
+
+
+})
+
+
 module.exports = router
