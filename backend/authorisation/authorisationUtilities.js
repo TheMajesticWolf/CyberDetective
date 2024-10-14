@@ -29,7 +29,7 @@ const authenticateToken = (req, res, next) => {
 	// let accessToken = req.headers["authorization"] && req.headers["authorization"].split(" ")[1]
 	let accessToken = req.cookies["accessToken"]
 
-	console.log("Here: ", accessToken)
+	// console.log("Here: ", accessToken)
 
 	jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET, (err, userObj) => {
 		if (err) {
