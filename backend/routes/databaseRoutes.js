@@ -31,7 +31,7 @@ router.post("/create-new-chat", async (req, res) => {
 
 
 	let newChat = new Chats({
-		"title": "Default",
+		"title": req.body.title,
 		"user_id": user_id,
 		"conversations": [
 

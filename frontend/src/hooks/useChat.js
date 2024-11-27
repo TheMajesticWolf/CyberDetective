@@ -22,6 +22,7 @@ const useChat = (chatType) => {
 	const createNewChat = async () => {
 		const data = {
 			chatType: chatType,
+			title: prompt("Enter a title: ")
 		}
 
 		try {
