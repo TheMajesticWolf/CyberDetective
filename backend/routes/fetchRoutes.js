@@ -137,4 +137,22 @@ router.post('/scraping', async (req, res) => {
 })
 
 
+router.get("/db-preview/:count", async (req, res) => {
+
+	// let fileData = fs.readFileSync("../")
+	let userObj = {
+		count: req.params.count
+	}
+	let response = await axios.get(`${process.env.FLASK_URL}/db-preview`, {
+		params: userObj, 
+		headers: {
+			"Content-Type": "application/json"
+		}
+	})
+	let jsonData = response.data
+
+	res.status(200).json({success: true, response: jsonData})
+
+})
+
 module.exports = router

@@ -209,6 +209,36 @@ def rag_based_qa():
 	return jsonify(out)
 
 
+@app.route("/db-preview", methods=["GET"])
+def db_preview():
+
+	path = os.path.join(dataset_path, "QA", "groq_generated.json")
+
+	df = pd.read_json(path)
+
+	contexts = df["context"].tolist()
+	questions = df["question"].tolist()
+	answers = df["answers"].apply(lambda x: x["answer_text"][0]).tolist()
+
+
+	
+	combined = list(zip(contexts, questions, answers))
+
+	# df = pd.DataFrame(combined, columns=["Context", "Question", "Answer"])
+
+	print(request)
+
+	count = int(request.args.get("count", 10))
+
+	data_to_send = {
+		"output": combined[:count],
+		"question": "Dataset preview",
+		"return_format": "dataset-qa-table"
+	}
+
+	return jsonify(data_to_send)
+
+
 
 if(__name__ == "__main__"):
 	app.run(host="0.0.0.0", debug=True, port=5000, threaded=True)
