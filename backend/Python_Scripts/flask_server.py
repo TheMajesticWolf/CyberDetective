@@ -7,6 +7,18 @@ from sentence_transformers import  util
 import pandas as pd
 import torch
 import numpy as np
+import os
+from transformers import pipeline, AutoTokenizer, AutoModelForQuestionAnswering
+
+
+is_docker = os.getenv('ENVIRONMENT') == 'docker'
+
+# Use relative path or dataset path based on the environment
+if(is_docker):
+    dataset_path = './Dataset'
+else:
+    dataset_path = '../../Dataset'  # Adjust this based on your local setup
+
 
 
 class MyPredictor:
@@ -107,8 +119,12 @@ class MyPredictor:
 		neighbors = int(user_obj["neighbors"])
 
 		chunks_and_embeddings_df = pd.concat([
-			pd.read_json("../../Dataset/Embeddings/malwarebytes_glossary.json"),
-			
+			pd.read_json(os.path.join(dataset_path, "Embeddings/malwarebytes_glossary.json")),
+			pd.read_json(os.path.join(dataset_path, "Embeddings/all_talos_vuln_reports.json")),
+			pd.read_json(os.path.join(dataset_path, "Embeddings/basic_definitions.json")),
+			pd.read_json(os.path.join(dataset_path, "Embeddings/processed_qa_contexts.json")),
+			pd.read_json(os.path.join(dataset_path, "Embeddings/scraped_wikipedia.json")),
+
 		], ignore_index=True)
 
 		embeddings = np.array(chunks_and_embeddings_df["embedding"].to_list())
@@ -126,15 +142,28 @@ class MyPredictor:
 
 		response = ""
 
-		for answer in relavant:
+		for idx, answer in enumerate(relavant):
 			answer = answer.replace("Answer:", "").strip()
-			response += answer + "\n\n"
+			# response += answer + "\n\n"
+			# response += f"{answer}\n==========================\nSimilarity Score = {top_results.values.tolist()[0][idx]:0.5f}\n==========================\n\n"
+			response += f"{answer}\n"
 
-		
+		model_name = "./Models/cyber_squad_bert"
+		model_name = "./Models/fully_custom_bert"
+
+		tokenizer = AutoTokenizer.from_pretrained(model_name)
+		model = AutoModelForQuestionAnswering.from_pretrained(model_name).to("cpu")
+
+		question_answerer = pipeline('question-answering', model=model, tokenizer=tokenizer, device="cpu")
+
+
+		generated_text = question_answerer(question=given_question, context=response)
+
+
 
 		data_to_send = {
 
-			"output": response.strip(),
+			"output": generated_text["answer"],
 			"question": given_question,
 			"return_format": "string"
 		}
