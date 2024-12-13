@@ -29,6 +29,52 @@ const RenderOutput = ({ frontendList }) => {
 						</>
 						}
 
+						{(object["return_format"] == "dataset-qa-table") && <>
+
+
+							<div className="response-output">
+								<p><b><u>User</u></b></p>
+								<p>{object["question"]}</p>
+							</div>
+
+							<div className="response-output">
+								<div className="ner-table-container response-output">
+
+									<div className="ner-table">
+
+										<table>
+
+											<thead>
+												<tr>
+													<th>SNo.</th>
+													<th>Question</th>
+													<th>Context</th>
+													<th>Answer</th>
+												</tr>
+											</thead>
+
+											<tbody>
+												{object["output"].map((ele, innerIdx) => (
+													<tr>
+														<td>{innerIdx}</td>
+														<td>{ele[0]}</td>
+														<td>{ele[1]}</td>
+														<td>{ele[2]}</td>
+													</tr>
+												))}
+											</tbody>
+										</table>
+
+
+									</div>
+								</div>
+							</div>
+
+
+						</>
+						}
+
+
 						{(object["return_format"] == "ner_list") && <>
 
 

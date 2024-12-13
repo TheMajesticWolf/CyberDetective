@@ -7,6 +7,7 @@ import PrivateRoutes from './components/PrivateRoutes';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ChatPageQA from './components/ChatPageQA';
+import DBPreview from './components/DBPreview';
 
 function App() {
 	return (
@@ -22,6 +23,7 @@ function App() {
 				<Route element={<PrivateRoutes />}>
 					<Route path="/named-entity-recognition" element={<NERPage />}></Route>
 					<Route path="/rag-based-qa" element={<ChatPageQA />}></Route>
+					<Route path="/db-preview" element={<DBPreview />}></Route>
 				</Route>
 
 
