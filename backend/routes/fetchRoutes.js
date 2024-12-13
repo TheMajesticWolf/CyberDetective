@@ -2,6 +2,8 @@ const express = require('express')
 const { spawn } = require('child_process')
 const { authenticateToken } = require('../authorisation/authorisationUtilities')
 const axios = require('axios').default
+const puppeteer = require('puppeteer-core')
+const fs = require('fs')
 
 const router = express.Router()
 
@@ -47,7 +49,20 @@ router.post("/perform-ner", async (req, res) => {
 		analysisType: req.body.analysisType,
 	}
 
-	// let pythonOutput = await executeScript("./Python_Scripts/ner.py", userObj)
+	if(userObj["analysisType"].endsWith("scrape")) {
+		let response = await axios.post(`http://localhost:6969/api/fetch/scraping`, {
+			url: userObj["userQuestion"],
+		}, {
+			headers: {
+				'Cookie': req.headers.cookie 						// Pass cookies from the incoming request so that the authentication does not fail
+			}
+		})
+		
+		let scrapedText = response.data?.scrapedText
+		userObj["userQuestion"] = scrapedText
+		userObj["analysisType"] = "ner-rfc"
+		
+	}
 	
 	let response = await axios.post(`${process.env.FLASK_URL}/perform-ner`, userObj)
 	
@@ -77,6 +92,48 @@ router.post("/rag-based-qa", async (req, res) => {
 	res.status(200).json({ success: true, response: pythonOutput })
 
 
+})
+
+
+router.post('/scraping', async (req, res) => {
+    const url = req.body.url
+    console.log(url)
+    try {
+        const browser = await puppeteer.launch({
+            executablePath: '/usr/bin/chromium', // Path to Firefox binary
+            headless: true,  // Set to false if you want to see the UI
+            args: [
+                '--incognito',
+				"--no-sandbox"
+            ]
+        })
+        const page = await browser.newPage()
+
+        await page.goto(url, { waitUntil: 'networkidle2' })
+
+        const textContent = await page.evaluate(() => {
+            const unwantedTags = ['nav', 'footer', '.sidebar', '.navbar', '.menu']
+
+            unwantedTags.forEach(tag => {
+                const elements = document.querySelectorAll(tag)
+                elements.forEach(el => el.remove()) 
+            })
+
+            return document.body.innerText
+
+        })
+
+        fs.writeFile('scrapedText.txt', textContent, (err) => {
+            if (err) throw err
+            console.log('Text has been saved to scrapedText.txt!')
+        })
+
+        await browser.close()
+        res.status(200).send({ success: true, scrapedText: textContent })
+    }
+    catch (error) {
+        res.status(404).send({ success: false, message: `Failed to Scrape: ${error}` })
+    }
 })
 
 
