@@ -32,6 +32,10 @@ const LeftPanel = ({ chatIds, currentChatId, setCurrentChatId, setResponseItems,
 					<button className={`navigation-box-button ${location.pathname === "/named-entity-recognition" ? 'active' : ''}`} type="button" onClick={() => navigate("/named-entity-recognition")}>NER </button>
 				</div>
 
+				<div className="navigation-box">
+					<button className={`navigation-box-button ${location.pathname === "/db-preview" ? 'active' : ''}`} type="button" onClick={() => navigate("/db-preview")}>DB Preview </button>
+				</div>
+
 
 
 				{(isChatPage == true) && <div className="navigation-box">
